@@ -36,8 +36,17 @@ namespace LineageMTool
         public string ArrowHotKey { get; set; }
         public string OrangeHotKey { get; set; }
         public string BackHomeHotKey { get; set; }
+        public string DetoxificationHotKey { get; set; }
+
+        public bool IsHpToMpHotKeyEnable { get; set; }
+        public bool IsHealHpHotKeyEnable { get; set; }
+        public bool IsArrowHotKeyEnable { get; set; }
+        public bool IsOrangeHotKeyEnable { get; set; }
+        public bool IsBackHomeHotKeyEnable { get; set; }
+        public bool IsDetoxificationHotKeyEnable { get; set; }
 
         public int LineNotifyInterval { get; set; }
+        public string Uid { get; set; }
 
         public Rect HpRect { get; set; }
         public Rect MpRect { get; set; }

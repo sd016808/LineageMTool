@@ -11,13 +11,13 @@ using System.Windows.Forms;
 
 namespace LineageMTool
 {
-    enum CaptureMode
+    public enum CaptureMode
     {
         DirectX,
         Gdi,
         DAMO
     }
-    class SimulatorInfo
+    public class SimulatorInfo
     {
         static public string HotKeyList = "鍵盤7,鍵盤8,鍵盤9,鍵盤0,鍵盤U,鍵盤I,鍵盤O,鍵盤P";
         private uint WM_KEYDOWN = 0x0100;

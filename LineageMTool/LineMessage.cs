@@ -24,6 +24,9 @@ namespace LineageMTool
             {
                 isRock.LineBot.Utility.PushMessage(
                 uid, message, "XfzPgOG9PcPqQj38QNOWkAtpSC8M7K2TJGPe0erfeogRIOr/6Xh5Hdl+CDwt0KUgkd0PvTLQ5ebqCyzYNT9kbJshTDy54NgKZG/9tFaRTQPmWH4x/l7xpGXTWTdLSdLVx9aKtSYvLVFJoUd0vPbfvAdB04t89/1O/w1cDnyilFU=");
+                if (image == null)
+                    return;
+
                 string imageUrl = UploadImage(image);
                 if (!string.IsNullOrWhiteSpace(imageUrl))
                 {

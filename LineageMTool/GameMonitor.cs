@@ -19,8 +19,8 @@ namespace LineageMTool
         {
             State = State.Stop;
             _config = config;
-            Player = new PlayerInfo(config);
             Simulator = new SimulatorInfo(config);
+            Player = new PlayerInfo(config, Simulator);
         }
         public Action<PlayerInfo> PlayerInfoChangedNotify;
         public Action<Image> MonitorScreenChagedNotify;
@@ -54,7 +54,6 @@ namespace LineageMTool
                             }
                             else
                             {
-                                Player.State = RoleState.Normal;
                                 MonitorStateNotify?.Invoke("正常", Color.Green, string.Empty);
                                 // 判斷動作
                                 CheckAction(Player.Hp, Player.Mp);
@@ -87,7 +86,7 @@ namespace LineageMTool
 
         private void CheckAction(int hp, int mp)
         {
-            if (hp < int.Parse(_config.numericUp7DownText))
+            if (_config.IsBackHomeHotKeyEnable && hp < int.Parse(_config.numericUp7DownText))
             {
                 Simulator.SendMessage(_config.BackHomeHotKey);
                 Thread.Sleep(500);
@@ -96,20 +95,23 @@ namespace LineageMTool
                 Simulator.SendMessage(_config.BackHomeHotKey);
                 Player.State = RoleState.BackHome;
                 State = State.Stop;
+                return;
             }
 
-            // 高治檢查
-            if (hp < int.Parse(_config.numericUp8DownText))
+            if(_config.IsDetoxificationHotKeyEnable && Player.State == RoleState.Detoxification)
+                Simulator.SendMessage(_config.DetoxificationHotKey);
+
+            if (_config.IsOrangeHotKeyEnable && hp < int.Parse(_config.numericUp8DownText))
                 Simulator.SendMessage(_config.OrangeHotKey);
 
-            if (hp < int.Parse(_config.numericUp3DownText) && mp > int.Parse(_config.numericUp4DownText))
+            if (_config.IsHealHpHotKeyEnable && hp < int.Parse(_config.numericUp3DownText) && mp > int.Parse(_config.numericUp4DownText))
                 Simulator.SendMessage(_config.HealHpHotKey);
 
-            else if (mp < int.Parse(_config.numericUp1DownText) && hp > int.Parse(_config.numericUp2DownText))
+            else if (_config.IsHpToMpHotKeyEnable && (mp < int.Parse(_config.numericUp1DownText) && hp > int.Parse(_config.numericUp2DownText)))
             {
                 Simulator.SendMessage(_config.HpToMpHotKey);
             }
-            else if (mp > int.Parse(_config.numericUp6DownText))
+            else if (_config.IsArrowHotKeyEnable && mp > int.Parse(_config.numericUp6DownText))
             {
                 for (int i = 0; i < 3; i++)
                 {

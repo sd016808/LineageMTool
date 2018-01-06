@@ -16,7 +16,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Dm;
+
 using Imgur.API.Authentication.Impl;
 using Imgur.API.Models;
 using Imgur.API.Endpoints.Impl;
@@ -28,15 +28,6 @@ namespace LineageMTool
     {
         Run,
         Stop
-    }
-
-    public enum RoleState
-    {
-        Normal,
-        Error,
-        Die,
-        OutOfArrow,
-        BackHome
     }
 
     public partial class Form1 : Form
@@ -63,8 +54,11 @@ namespace LineageMTool
             comboBoxArrow.Items.AddRange(SimulatorInfo.HotKeyList.Split(','));
             comboBoxOrange.Items.AddRange(SimulatorInfo.HotKeyList.Split(','));
             comboBoxBackToHome.Items.AddRange(SimulatorInfo.HotKeyList.Split(','));
+            comboBox1.Items.AddRange(SimulatorInfo.HotKeyList.Split(','));
+            comboBoxCaptureSetting.Items.Add("DirectX");
+            comboBoxCaptureSetting.Items.Add("GDI");
 
-            if(File.Exists(_configPath))
+            if (File.Exists(_configPath))
             {
                 string jsonText = File.ReadAllText(_configPath);
                 _config = JsonConvert.DeserializeObject<Config>(jsonText);
@@ -112,6 +106,15 @@ namespace LineageMTool
             _config.HealHpHotKey = comboBoxHealHp.Text;
             _config.HpToMpHotKey = comboBoxHpToMp.Text;
             _config.OrangeHotKey = comboBoxOrange.Text;
+            _config.DetoxificationHotKey = comboBox1.Text;
+
+            _config.IsArrowHotKeyEnable = checkBox3.Checked;
+            _config.IsBackHomeHotKeyEnable = checkBox5.Checked;
+            _config.IsDetoxificationHotKeyEnable = checkBox6.Checked;
+            _config.IsHealHpHotKeyEnable = checkBox2.Checked;
+            _config.IsHpToMpHotKeyEnable = checkBox1.Checked;
+            _config.IsOrangeHotKeyEnable = checkBox4.Checked;
+
             _config.numericUp1DownText = numericUpDown1.Text;
             _config.numericUp2DownText = numericUpDown2.Text;
             _config.numericUp3DownText = numericUpDown3.Text;
@@ -131,17 +134,28 @@ namespace LineageMTool
             _config.MpRect.Right = textBox7.Text;
 
             _config.LineNotifyInterval = (int)numericUpDownLineNotifyMinute.Value;
+            _config.Uid = textBoxUid.Text;
         }
 
         private void ConverConfigToUI()
         {
             textBoxSimulatorName.Text = _config.SimulatorName;
+            textBoxRefresh.Text = _config.RefreshTime;
+            comboBoxCaptureSetting.SelectedIndex = _config.comboBoxCaptureSettingSelectIndex;
+
             comboBoxHpToMp.Text = _config.HpToMpHotKey;
             comboBoxHealHp.Text = _config.HealHpHotKey;
             comboBoxArrow.Text = _config.ArrowHotKey;
             comboBoxOrange.Text = _config.OrangeHotKey;
             comboBoxBackToHome.Text = _config.BackHomeHotKey;
-            textBoxRefresh.Text = _config.RefreshTime;
+            comboBox1.Text = _config.DetoxificationHotKey;
+
+            checkBox3.Checked = _config.IsArrowHotKeyEnable;
+            checkBox5.Checked = _config.IsBackHomeHotKeyEnable;
+            checkBox6.Checked = _config.IsDetoxificationHotKeyEnable;
+            checkBox2.Checked = _config.IsHealHpHotKeyEnable;
+            checkBox1.Checked = _config.IsHpToMpHotKeyEnable;
+            checkBox4.Checked = _config.IsOrangeHotKeyEnable;
 
             numericUpDown1.Text = _config.numericUp1DownText;
             numericUpDown2.Text = _config.numericUp2DownText;
@@ -160,6 +174,9 @@ namespace LineageMTool
             textBox5.Text = _config.MpRect.Down;
             textBox8.Text = _config.MpRect.Left;
             textBox7.Text = _config.MpRect.Right;
+
+            numericUpDownLineNotifyMinute.Value = _config.LineNotifyInterval;
+            textBoxUid.Text = _config.Uid;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -182,11 +199,14 @@ namespace LineageMTool
                 button1.Text = "停止";
                 _gameMonitor.Player.State = RoleState.Normal;
                 _monitorTask = Task.Run(new Action(_gameMonitor.Monitor));
+                timer1.Stop();
+                timer1.Start();
             }
             else
             {
                 _gameMonitor.State = State.Stop;
                 button1.Text = "啟動";
+                timer1.Stop();
             }
         }
 

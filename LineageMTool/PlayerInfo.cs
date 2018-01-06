@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
@@ -8,15 +9,61 @@ using System.Threading.Tasks;
 
 namespace LineageMTool
 {
+    public enum RoleState
+    {
+        Normal,
+        Error,
+        Die,
+        OutOfArrow,
+        BackHome,
+        Detoxification
+    }
+
     public class PlayerInfo
     {
-        public RoleState State = RoleState.Normal;
+        private RoleState _state;
+        public RoleState State
+        {
+            get
+            {
+                return _state;
+            }
+            set
+            {
+                _state = value;
+                switch(value)
+                {
+                    case RoleState.Normal:
+                    case RoleState.Detoxification:
+                        _stopwatchSpacialError.Stop();
+                        break;
+                    case RoleState.BackHome:
+                    case RoleState.Die:
+                    case RoleState.Error:
+                    case RoleState.OutOfArrow:
+                        if (!_stopwatchSpacialError.IsRunning)
+                            _stopwatchSpacialError.Start();
+
+                        if (_stopwatchSpacialError.Elapsed.TotalMinutes > 5)
+                        {
+                            _stopwatchSpacialError.Restart();
+                            LineMessage message = new LineMessage();
+                            message.SendMessageToLine(_config.Uid, GetRoleStateMessage(), _simulatorInfo.GetImage((CaptureMode)_config.comboBoxCaptureSettingSelectIndex));
+                        }
+                        break;
+                }
+
+            }
+        }
+        private SimulatorInfo _simulatorInfo;
+        private Stopwatch _stopwatchSpacialError = new Stopwatch();
         private Config _config;
         public int Hp { get; set; }
         public int Mp { get; set; }
-        public PlayerInfo(Config config)
+        public PlayerInfo(Config config, SimulatorInfo simulatorInfo)
         {
             _config = config;
+            _simulatorInfo = simulatorInfo;
         }
         public void CalculateHpPercent(Image image)
         {
@@ -25,6 +72,7 @@ namespace LineageMTool
             int hprightX = int.Parse(_config.HpRect.Right);
             int hptopY = int.Parse(_config.HpRect.Top);
             int hpdownY = int.Parse(_config.HpRect.Down);
+            int weight = 0;
             using (Bitmap bmp = new Bitmap(image))
             {
 
@@ -44,10 +92,26 @@ namespace LineageMTool
                     RedAverage /= (hpdownY - hptopY);
                     GreenAverage /= (hpdownY - hptopY);
                     BlueAverage /= (hpdownY - hptopY);
-                    if ((RedAverage > 100 && GreenAverage < 50 && BlueAverage < 50) || (RedAverage < 20 && GreenAverage > 50 && BlueAverage < 20))
+                    if ((RedAverage > 100 && GreenAverage < 50 && BlueAverage < 50))
+                    {
+                        State = RoleState.Detoxification;
                         redPointList.Add(Color.FromArgb(RedAverage, GreenAverage, BlueAverage));
+                        weight--;
+                    }
+
+                    else if ((RedAverage < 20 && GreenAverage > 50 && BlueAverage < 20))
+                    {
+                        
+                        redPointList.Add(Color.FromArgb(RedAverage, GreenAverage, BlueAverage));
+                        weight++;
+                    }
                 }
             }
+            if (weight < 0)
+                State = RoleState.Normal;
+            else
+                State = RoleState.Detoxification;
+
             int hpPercent = (int)(redPointList.Count * 100 / (hprightX - hpleftX));
             Hp =  hpPercent;
         }
@@ -95,6 +159,8 @@ namespace LineageMTool
                     return "箭矢用完，使用回捲回村";
                 case RoleState.BackHome:
                     return "使用回捲回村";
+                case RoleState.Detoxification:
+                    return "角色中毒，嘗試使用解毒藥水";
                 default:
                     return "外掛正常運行中";
             }

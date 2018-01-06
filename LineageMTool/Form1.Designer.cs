@@ -31,6 +31,14 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.button3 = new System.Windows.Forms.Button();
             this.numericUpDownLineNotifyMinute = new System.Windows.Forms.NumericUpDown();
             this.label43 = new System.Windows.Forms.Label();
             this.comboBoxCaptureSetting = new System.Windows.Forms.ComboBox();
@@ -80,7 +88,6 @@
             this.label14 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.comboBoxBackToHome = new System.Windows.Forms.ComboBox();
-            this.label18 = new System.Windows.Forms.Label();
             this.numericUpDown8 = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -98,13 +105,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBoxOrange = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.comboBoxArrow = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.comboBoxHealHp = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.comboBoxHpToMp = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -113,7 +116,6 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.button3 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineNotifyMinute)).BeginInit();
@@ -143,6 +145,13 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.checkBox6);
+            this.tabPage1.Controls.Add(this.comboBox1);
+            this.tabPage1.Controls.Add(this.checkBox5);
+            this.tabPage1.Controls.Add(this.checkBox4);
+            this.tabPage1.Controls.Add(this.checkBox3);
+            this.tabPage1.Controls.Add(this.checkBox2);
+            this.tabPage1.Controls.Add(this.checkBox1);
             this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.numericUpDownLineNotifyMinute);
             this.tabPage1.Controls.Add(this.label43);
@@ -193,7 +202,6 @@
             this.tabPage1.Controls.Add(this.label14);
             this.tabPage1.Controls.Add(this.label17);
             this.tabPage1.Controls.Add(this.comboBoxBackToHome);
-            this.tabPage1.Controls.Add(this.label18);
             this.tabPage1.Controls.Add(this.numericUpDown8);
             this.tabPage1.Controls.Add(this.label15);
             this.tabPage1.Controls.Add(this.label16);
@@ -211,13 +219,9 @@
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.comboBoxOrange);
-            this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.comboBoxArrow);
-            this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.comboBoxHealHp);
-            this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.comboBoxHpToMp);
-            this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -226,6 +230,91 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.Font = new System.Drawing.Font("新細明體", 12F);
+            this.checkBox6.Location = new System.Drawing.Point(208, 215);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(59, 20);
+            this.checkBox6.TabIndex = 164;
+            this.checkBox6.Text = "解毒";
+            this.checkBox6.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(284, 215);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(102, 20);
+            this.comboBox1.TabIndex = 163;
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Font = new System.Drawing.Font("新細明體", 12F);
+            this.checkBox5.Location = new System.Drawing.Point(155, 176);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(123, 20);
+            this.checkBox5.TabIndex = 162;
+            this.checkBox5.Text = "回程卷軸熱鍵";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // checkBox4
+            // 
+            this.checkBox4.AutoSize = true;
+            this.checkBox4.Font = new System.Drawing.Font("新細明體", 12F);
+            this.checkBox4.Location = new System.Drawing.Point(185, 139);
+            this.checkBox4.Name = "checkBox4";
+            this.checkBox4.Size = new System.Drawing.Size(91, 20);
+            this.checkBox4.TabIndex = 161;
+            this.checkBox4.Text = "橘水熱鑑";
+            this.checkBox4.UseVisualStyleBackColor = true;
+            // 
+            // checkBox3
+            // 
+            this.checkBox3.AutoSize = true;
+            this.checkBox3.Font = new System.Drawing.Font("新細明體", 12F);
+            this.checkBox3.Location = new System.Drawing.Point(171, 99);
+            this.checkBox3.Name = "checkBox3";
+            this.checkBox3.Size = new System.Drawing.Size(107, 20);
+            this.checkBox3.TabIndex = 160;
+            this.checkBox3.Text = "三重矢熱鍵";
+            this.checkBox3.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Font = new System.Drawing.Font("新細明體", 12F);
+            this.checkBox2.Location = new System.Drawing.Point(185, 61);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(91, 20);
+            this.checkBox2.TabIndex = 159;
+            this.checkBox2.Text = "高治熱鑑";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("新細明體", 12F);
+            this.checkBox1.Location = new System.Drawing.Point(185, 26);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(91, 20);
+            this.checkBox1.TabIndex = 158;
+            this.checkBox1.Text = "魂體熱鑑";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(904, 195);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(76, 30);
+            this.button3.TabIndex = 157;
+            this.button3.Text = "清除";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // numericUpDownLineNotifyMinute
             // 
@@ -260,15 +349,12 @@
             // 
             // comboBoxCaptureSetting
             // 
+            this.comboBoxCaptureSetting.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCaptureSetting.FormattingEnabled = true;
-            this.comboBoxCaptureSetting.Items.AddRange(new object[] {
-            "DirectX",
-            "GDI"});
-            this.comboBoxCaptureSetting.Location = new System.Drawing.Point(30, 201);
+            this.comboBoxCaptureSetting.Location = new System.Drawing.Point(27, 197);
             this.comboBoxCaptureSetting.Name = "comboBoxCaptureSetting";
             this.comboBoxCaptureSetting.Size = new System.Drawing.Size(121, 20);
             this.comboBoxCaptureSetting.TabIndex = 154;
-            this.comboBoxCaptureSetting.Text = "GDI";
             // 
             // label42
             // 
@@ -719,16 +805,6 @@
             this.comboBoxBackToHome.Size = new System.Drawing.Size(102, 20);
             this.comboBoxBackToHome.TabIndex = 103;
             // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label18.Location = new System.Drawing.Point(174, 175);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(104, 16);
-            this.label18.TabIndex = 102;
-            this.label18.Text = "回程卷軸熱鍵";
-            // 
             // numericUpDown8
             // 
             this.numericUpDown8.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -928,16 +1004,6 @@
             this.comboBoxOrange.Size = new System.Drawing.Size(102, 20);
             this.comboBoxOrange.TabIndex = 85;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label4.Location = new System.Drawing.Point(195, 139);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(72, 16);
-            this.label4.TabIndex = 84;
-            this.label4.Text = "橘水熱鍵";
-            // 
             // comboBoxArrow
             // 
             this.comboBoxArrow.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -946,16 +1012,6 @@
             this.comboBoxArrow.Name = "comboBoxArrow";
             this.comboBoxArrow.Size = new System.Drawing.Size(102, 20);
             this.comboBoxArrow.TabIndex = 83;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label3.Location = new System.Drawing.Point(188, 100);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(88, 16);
-            this.label3.TabIndex = 82;
-            this.label3.Text = "三重矢熱鍵";
             // 
             // comboBoxHealHp
             // 
@@ -966,16 +1022,6 @@
             this.comboBoxHealHp.Size = new System.Drawing.Size(102, 20);
             this.comboBoxHealHp.TabIndex = 81;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label2.Location = new System.Drawing.Point(195, 62);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 16);
-            this.label2.TabIndex = 80;
-            this.label2.Text = "高治熱鍵";
-            // 
             // comboBoxHpToMp
             // 
             this.comboBoxHpToMp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -984,16 +1030,6 @@
             this.comboBoxHpToMp.Name = "comboBoxHpToMp";
             this.comboBoxHpToMp.Size = new System.Drawing.Size(102, 20);
             this.comboBoxHpToMp.TabIndex = 79;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(195, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(72, 16);
-            this.label1.TabIndex = 78;
-            this.label1.Text = "魂體熱鍵";
             // 
             // button1
             // 
@@ -1060,16 +1096,6 @@
             // 
             this.timer1.Interval = 10000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(904, 195);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(76, 30);
-            this.button3.TabIndex = 157;
-            this.button3.Text = "清除";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form1
             // 
@@ -1148,7 +1174,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ComboBox comboBoxBackToHome;
-        private System.Windows.Forms.Label label18;
         private System.Windows.Forms.NumericUpDown numericUpDown8;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
@@ -1166,13 +1191,9 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBoxOrange;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboBoxArrow;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBoxHealHp;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxHpToMp;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -1189,6 +1210,13 @@
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 
