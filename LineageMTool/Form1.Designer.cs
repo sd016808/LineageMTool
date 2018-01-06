@@ -28,8 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.numericUpDownLineNotifyMinute = new System.Windows.Forms.NumericUpDown();
+            this.label43 = new System.Windows.Forms.Label();
+            this.comboBoxCaptureSetting = new System.Windows.Forms.ComboBox();
+            this.label42 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label41 = new System.Windows.Forms.Label();
+            this.textBoxUid = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.label40 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
@@ -104,12 +112,12 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.label41 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label42 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.button3 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineNotifyMinute)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
@@ -120,7 +128,6 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -136,10 +143,14 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button3);
+            this.tabPage1.Controls.Add(this.numericUpDownLineNotifyMinute);
+            this.tabPage1.Controls.Add(this.label43);
+            this.tabPage1.Controls.Add(this.comboBoxCaptureSetting);
             this.tabPage1.Controls.Add(this.label42);
             this.tabPage1.Controls.Add(this.pictureBox2);
             this.tabPage1.Controls.Add(this.label41);
-            this.tabPage1.Controls.Add(this.textBox9);
+            this.tabPage1.Controls.Add(this.textBoxUid);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.label40);
             this.tabPage1.Controls.Add(this.label39);
@@ -215,6 +226,89 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownLineNotifyMinute
+            // 
+            this.numericUpDownLineNotifyMinute.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.numericUpDownLineNotifyMinute.Location = new System.Drawing.Point(486, 375);
+            this.numericUpDownLineNotifyMinute.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownLineNotifyMinute.Name = "numericUpDownLineNotifyMinute";
+            this.numericUpDownLineNotifyMinute.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.numericUpDownLineNotifyMinute.Size = new System.Drawing.Size(87, 27);
+            this.numericUpDownLineNotifyMinute.TabIndex = 156;
+            this.numericUpDownLineNotifyMinute.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.numericUpDownLineNotifyMinute.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.numericUpDownLineNotifyMinute.ValueChanged += new System.EventHandler(this.numericUpDownLineNotifyMinute_ValueChanged);
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label43.Location = new System.Drawing.Point(296, 379);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(184, 16);
+            this.label43.TabIndex = 155;
+            this.label43.Text = "幾分鐘送出一次Line訊息:";
+            // 
+            // comboBoxCaptureSetting
+            // 
+            this.comboBoxCaptureSetting.FormattingEnabled = true;
+            this.comboBoxCaptureSetting.Items.AddRange(new object[] {
+            "DirectX",
+            "GDI"});
+            this.comboBoxCaptureSetting.Location = new System.Drawing.Point(30, 201);
+            this.comboBoxCaptureSetting.Name = "comboBoxCaptureSetting";
+            this.comboBoxCaptureSetting.Size = new System.Drawing.Size(121, 20);
+            this.comboBoxCaptureSetting.TabIndex = 154;
+            this.comboBoxCaptureSetting.Text = "GDI";
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label42.Location = new System.Drawing.Point(296, 330);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(273, 16);
+            this.label42.TabIndex = 153;
+            this.label42.Text = "加入好友後送出/showmyid訊息得到uid";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::LineageMTool.Properties.Resources.QR;
+            this.pictureBox2.Location = new System.Drawing.Point(97, 320);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(193, 193);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 152;
+            this.pictureBox2.TabStop = false;
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label41.Location = new System.Drawing.Point(27, 268);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(64, 16);
+            this.label41.TabIndex = 148;
+            this.label41.Text = "Line uid:";
+            // 
+            // textBoxUid
+            // 
+            this.textBoxUid.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBoxUid.Location = new System.Drawing.Point(97, 262);
+            this.textBoxUid.Name = "textBoxUid";
+            this.textBoxUid.Size = new System.Drawing.Size(344, 27);
+            this.textBoxUid.TabIndex = 147;
+            this.textBoxUid.Text = "Uf65bb0bcdc6e631cafc09c79cb2183df";
+            this.textBoxUid.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // button2
             // 
@@ -962,45 +1056,20 @@
             this.toolStripStatusLabel3.Size = new System.Drawing.Size(38, 17);
             this.toolStripStatusLabel3.Text = "Color";
             // 
-            // textBox9
+            // timer1
             // 
-            this.textBox9.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox9.Location = new System.Drawing.Point(97, 262);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(344, 27);
-            this.textBox9.TabIndex = 147;
-            this.textBox9.Text = "Uf65bb0bcdc6e631cafc09c79cb2183df";
-            this.textBox9.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.timer1.Interval = 10000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // label41
+            // button3
             // 
-            this.label41.AutoSize = true;
-            this.label41.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label41.Location = new System.Drawing.Point(27, 268);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(64, 16);
-            this.label41.TabIndex = 148;
-            this.label41.Text = "Line uid:";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::LineageMTool.Properties.Resources.QR;
-            this.pictureBox2.Location = new System.Drawing.Point(97, 320);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(193, 193);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox2.TabIndex = 152;
-            this.pictureBox2.TabStop = false;
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label42.Location = new System.Drawing.Point(296, 330);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(273, 16);
-            this.label42.TabIndex = 153;
-            this.label42.Text = "加入好友後送出/showmyid訊息得到uid";
+            this.button3.Location = new System.Drawing.Point(904, 195);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(76, 30);
+            this.button3.TabIndex = 157;
+            this.button3.Text = "清除";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form1
             // 
@@ -1015,6 +1084,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineNotifyMinute)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown7)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
@@ -1026,7 +1097,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1111,9 +1181,14 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
         private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox textBoxUid;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.ComboBox comboBoxCaptureSetting;
+        private System.Windows.Forms.NumericUpDown numericUpDownLineNotifyMinute;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Button button3;
     }
 }
 
