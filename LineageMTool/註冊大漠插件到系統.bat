@@ -1,1 +1,1 @@
-regsvr32 C:\Users\sd016\Documents\Visual Studio 2017\Projects\LineageMTool\LineageMTool\RegDll.dll
+regsvr32 RegDll.dll
