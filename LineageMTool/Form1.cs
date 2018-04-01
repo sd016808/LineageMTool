@@ -69,6 +69,7 @@ namespace LineageMTool
                     comboBoxArrow.SelectedIndex = 2;
                     comboBoxOrange.SelectedIndex = 3;
                     comboBoxBackToHome.SelectedIndex = 5;
+                    comboBoxPlayerNo.SelectedIndex = 0;
                 }
                 else
                     ConverConfigToUI();
@@ -114,6 +115,8 @@ namespace LineageMTool
             _config.IsHealHpHotKeyEnable = checkBox2.Checked;
             _config.IsHpToMpHotKeyEnable = checkBox1.Checked;
             _config.IsOrangeHotKeyEnable = checkBox4.Checked;
+            _config.IsFollow1P = checkBox7.Checked;
+
 
             _config.numericUp1DownText = numericUpDown1.Text;
             _config.numericUp2DownText = numericUpDown2.Text;
@@ -123,15 +126,7 @@ namespace LineageMTool
             _config.numericUp7DownText = numericUpDown7.Text;
             _config.numericUp8DownText = numericUpDown8.Text;
 
-            _config.HpRect.Top = textBox4.Text;
-            _config.HpRect.Down = textBox3.Text;
-            _config.HpRect.Left = textBox1.Text;
-            _config.HpRect.Right = textBox2.Text;
-
-            _config.MpRect.Top = textBox6.Text;
-            _config.MpRect.Down = textBox5.Text;
-            _config.MpRect.Left = textBox8.Text;
-            _config.MpRect.Right = textBox7.Text;
+            _config.PlayerNo = (PlayerNo)comboBoxPlayerNo.SelectedIndex;
 
             _config.LineNotifyInterval = (int)numericUpDownLineNotifyMinute.Value;
             _config.Uid = textBoxUid.Text;
@@ -156,6 +151,7 @@ namespace LineageMTool
             checkBox2.Checked = _config.IsHealHpHotKeyEnable;
             checkBox1.Checked = _config.IsHpToMpHotKeyEnable;
             checkBox4.Checked = _config.IsOrangeHotKeyEnable;
+            checkBox7.Checked = _config.IsFollow1P;
 
             numericUpDown1.Text = _config.numericUp1DownText;
             numericUpDown2.Text = _config.numericUp2DownText;
@@ -165,15 +161,7 @@ namespace LineageMTool
             numericUpDown7.Text = _config.numericUp7DownText;
             numericUpDown8.Text = _config.numericUp8DownText;
 
-            textBox4.Text = _config.HpRect.Top;
-            textBox3.Text = _config.HpRect.Down;
-            textBox1.Text = _config.HpRect.Left;
-            textBox2.Text = _config.HpRect.Right;
-
-            textBox6.Text = _config.MpRect.Top;
-            textBox5.Text = _config.MpRect.Down;
-            textBox8.Text = _config.MpRect.Left;
-            textBox7.Text = _config.MpRect.Right;
+            comboBoxPlayerNo.SelectedIndex = (int)_config.PlayerNo;
 
             numericUpDownLineNotifyMinute.Value = _config.LineNotifyInterval;
             textBoxUid.Text = _config.Uid;
@@ -376,6 +364,27 @@ namespace LineageMTool
                     listBox1.Items.Add(errorMsg);
                     listBox1.TopIndex = listBox1.Items.Count - 1;
                 }
+            }));
+        }
+
+        private List<int> _lastScanResult = new List<int>();
+        private void button4_Click(object sender, EventArgs e)
+        {
+            _lastScanResult.Clear();
+            int target = int.Parse(textBox10.Text);
+            Task.Run(new Action(() =>
+            {
+                MemoryScanner.Scan("LdBoxHeadless", target, _lastScanResult);
+            }));
+        }
+        private List<int> _reScanResult = new List<int>();
+        private void button5_Click(object sender, EventArgs e)
+        {
+            int target = int.Parse(textBox10.Text);
+            Task.Run(new Action(() =>
+            {
+                _reScanResult = MemoryScanner.ReScan("LdBoxHeadless", target);
+                _lastScanResult = Enumerable.Intersect(_reScanResult, _lastScanResult).ToList();
             }));
         }
     }

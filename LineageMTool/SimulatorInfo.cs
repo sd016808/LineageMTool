@@ -39,6 +39,7 @@ namespace LineageMTool
         {
             // 抓取雷電模擬器的Handle
             IntPtr handle = WinApi.FindWindow(null, Name);
+            handle = WinApi.FindWindowEx(handle, 0, null, null);
             Image image = null;
             switch (captureMode)
             {
@@ -62,10 +63,7 @@ namespace LineageMTool
             IntPtr hwndCalc = WinApi.FindWindow(null, Name);
             string[] hotkeyList = HotKeyList.Split(',');
             IntPtr test = IntPtr.Zero;
-            if (Name.Contains("雷電"))
-                test = WinApi.FindWindowEx(hwndCalc, 0, null, null);
-            else
-                test = hwndCalc;
+            test = WinApi.FindWindowEx(hwndCalc, 0, null, null);
 
             if (action == hotkeyList[0])
             {
@@ -115,6 +113,49 @@ namespace LineageMTool
                 Thread.Sleep(100);
                 WinApi.SendMessage(test, WM_KEYUP, Convert.ToInt32(Keys.P), 0);
             }
+        }
+
+        public void SendWindowOnTop()
+        {
+            // 抓取雷電模擬器的Handle
+            IntPtr hwndCalc = WinApi.FindWindow(null, Name);
+            string[] hotkeyList = HotKeyList.Split(',');
+            IntPtr test = IntPtr.Zero;
+            test = WinApi.FindWindowEx(hwndCalc, 0, null, null);
+
+
+            WinApi.SetForegroundWindow(test);
+        }
+
+        public void SendMouseMessage(int x, int y)
+        {
+            // 抓取雷電模擬器的Handle
+            IntPtr hwndCalc = WinApi.FindWindow(null, Name);
+            IntPtr test = IntPtr.Zero;
+            test = WinApi.FindWindowEx(hwndCalc, 0, null, null);
+
+
+            WinApi.SendMessage(test, WM_LBUTTONDOWN, 0, x + (y << 16));
+            Thread.Sleep(100);
+            WinApi.SendMessage(test, WM_LBUTTONUP, 0, x + (y << 16));
+            Thread.Sleep(100);
+            WinApi.SendMessage(test, WM_LBUTTONDOWN, 0, x + (y << 16));
+            Thread.Sleep(100);
+            WinApi.SendMessage(test, WM_LBUTTONUP, 0, x + (y << 16));
+        }
+
+        public void SendAutoAttackMessage()
+        {
+            // 抓取雷電模擬器的Handle
+            IntPtr hwndCalc = WinApi.FindWindow(null, Name);
+            IntPtr test = IntPtr.Zero;
+            test = WinApi.FindWindowEx(hwndCalc, 0, null, null);
+
+
+            WinApi.SendMessage(test, WM_KEYDOWN, Convert.ToInt32(Keys.K), 0);
+            Thread.Sleep(100);
+            WinApi.SendMessage(test, WM_KEYUP, Convert.ToInt32(Keys.K), 0);
+
         }
     }
 }

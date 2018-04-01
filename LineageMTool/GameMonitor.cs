@@ -36,7 +36,7 @@ namespace LineageMTool
                     {
                         //IntPtr test = WinApi.FindWindowEx(hwndCalc, 0, null, null);
                         Image image = Simulator.GetImage((CaptureMode)_config.comboBoxCaptureSettingSelectIndex);
-                        // 計算HP和MP                
+                        // 計算HP和MP        
                         Player.CalculateHpPercent(image);
                         Player.CalculateMpPercent(image);
                         MonitorScreenChagedNotify?.Invoke(image);
@@ -55,8 +55,29 @@ namespace LineageMTool
                             else
                             {
                                 MonitorStateNotify?.Invoke("正常", Color.Green, string.Empty);
-                                // 判斷動作
-                                CheckAction(Player.Hp, Player.Mp);
+                                //if(_config.PlayerNo == PlayerNo.P1)
+                                //    Simulator.SendAutoAttackMessage();
+
+                                //判斷動作
+                                if (_config.IsFollow1P)
+                                {
+                                    Player.Get1PLocation(image);
+                                    if ((Player.X != 0 && Player.Y != 0) && ((Math.Abs(Player.X - 1273) > 50) || (Math.Abs(Player.Y - 225) > 50)))
+                                    {
+                                        MoveTo1P();
+                                    }
+                                    else
+                                    {
+                                        //if (Player.CheckIfGotAttackMessage(image))
+                                        //{
+                                            Simulator.SendAutoAttackMessage();
+                                        //}
+
+                                        CheckAction(Player.Hp, Player.Mp);
+                                    }
+                                }
+                                else
+                                    CheckAction(Player.Hp, Player.Mp);
                             }
                         }
                     }
@@ -84,8 +105,54 @@ namespace LineageMTool
             }
         }
 
+        private void MoveTo1P()
+        {
+            if ( Player.X == 0 && Player.Y == 0 )
+                    return;
+
+            double angle = CalAngle(new Point(1273,225), new Point(Player.X, Player.Y));
+            Simulator.SendMouseMessage((int)(Math.Cos(angle)*165+ 697), 370 - (int)(Math.Sin(angle) * 165));
+
+
+            //if (Player.X >= 1019 && Player.Y <= 213)
+            //{
+            //    Simulator.SendMouseMessage(740, 208);
+            //}
+            //else if (Player.X >= 1019 && Player.Y >= 213)
+            //{
+            //    Simulator.SendMouseMessage(740, 527);
+            //}
+            //else if(Player.X <= 1019 && Player.Y <= 213)
+            //{
+            //    Simulator.SendMouseMessage(304, 208);
+            //}
+            //else if(Player.X <= 1019 && Player.Y >= 213)
+            //{
+            //    Simulator.SendMouseMessage(304, 527);
+            //}
+
+        }
+
+        private double CalAngle(Point pa, Point pb)
+        {
+            // pa為圓心  
+            /// Y alias is reverse from Cartesian plane
+            return Math.Atan2(pa.Y - pb.Y, pb.X - pa.X);
+        }
+
         private void CheckAction(int hp, int mp)
         {
+            if (hp < 10)
+            {
+                //中毒或石化暫時不處理
+                return;
+            }
+            if (_config.IsDetoxificationHotKeyEnable && Player.State == RoleState.Detoxification)
+            {
+                Simulator.SendMessage(_config.DetoxificationHotKey);
+                return;
+            }
+
             if (_config.IsBackHomeHotKeyEnable && hp < int.Parse(_config.numericUp7DownText))
             {
                 Simulator.SendMessage(_config.BackHomeHotKey);
@@ -95,11 +162,9 @@ namespace LineageMTool
                 Simulator.SendMessage(_config.BackHomeHotKey);
                 Player.State = RoleState.BackHome;
                 State = State.Stop;
+                Simulator.SendWindowOnTop();
                 return;
             }
-
-            if(_config.IsDetoxificationHotKeyEnable && Player.State == RoleState.Detoxification)
-                Simulator.SendMessage(_config.DetoxificationHotKey);
 
             if (_config.IsOrangeHotKeyEnable && hp < int.Parse(_config.numericUp8DownText))
                 Simulator.SendMessage(_config.OrangeHotKey);

@@ -12,6 +12,20 @@ namespace LineageMTool
         public string Right;
         public string Top;
         public string Down;
+        public Rect(string left,  string right, string top, string down)
+        {
+            Left = left;
+            Top = top;
+            Right = right;
+            Down = down;
+        }
+        public Rect(int left,  int right, int top, int down)
+        {
+            Left = left.ToString();
+            Top = top.ToString();
+            Right = right.ToString();
+            Down = down.ToString();
+        }
     }
 
     public class Config
@@ -42,20 +56,18 @@ namespace LineageMTool
         public bool IsHealHpHotKeyEnable { get; set; }
         public bool IsArrowHotKeyEnable { get; set; }
         public bool IsOrangeHotKeyEnable { get; set; }
+        public bool IsFollow1P { get; set; }
         public bool IsBackHomeHotKeyEnable { get; set; }
         public bool IsDetoxificationHotKeyEnable { get; set; }
 
         public int LineNotifyInterval { get; set; }
         public string Uid { get; set; }
 
-        public Rect HpRect { get; set; }
-        public Rect MpRect { get; set; }
+        public PlayerNo PlayerNo { get; set; }
 
         public Config()
         {
-            HpRect = new Rect();
-            MpRect = new Rect();
-            Version = new Version(1, 1);
+            Version = new Version(1, 2);
         }
     }
 }

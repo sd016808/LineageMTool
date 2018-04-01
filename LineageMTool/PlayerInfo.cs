@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Emgu.CV;
+using Emgu.CV.CvEnum;
+using Emgu.CV.Structure;
+using LineageMTool.Properties;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -19,8 +23,42 @@ namespace LineageMTool
         Detoxification
     }
 
-    public class PlayerInfo
+    public enum PlayerNo
     {
+        P1,
+        P2,
+        P3,
+        P4
+    }
+
+    public class PlayerInfo
+    { 
+        // 固定解析度下的座標 1280*720
+        private Rect GetHpLocation(PlayerNo playerNo)
+        {
+            switch(playerNo)
+            {
+                case PlayerNo.P1:
+                    return new Rect(72, 177, 254, 255);
+                case PlayerNo.P2:
+                    return new Rect(80, 192, 349, 350);
+                default:
+                    return new Rect(80, 192, 280, 281);
+            }
+        }
+        // 固定解析度下的座標 1280*720
+        private Rect GetMpLocation(PlayerNo playerNo)
+        {
+            switch (playerNo)
+            {
+                case PlayerNo.P1:
+                    return new Rect(72, 177, 263, 264);
+                case PlayerNo.P2:
+                    return new Rect(80, 192, 361, 362);
+                default:
+                    return new Rect(80, 192, 290, 291);
+            }
+        }
         private RoleState _state;
         public RoleState State
         {
@@ -60,6 +98,8 @@ namespace LineageMTool
         private Config _config;
         public int Hp { get; set; }
         public int Mp { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
         public PlayerInfo(Config config, SimulatorInfo simulatorInfo)
         {
             _config = config;
@@ -68,10 +108,11 @@ namespace LineageMTool
         public void CalculateHpPercent(Image image)
         {
             List<Color> redPointList = new List<Color>();
-            int hpleftX = int.Parse(_config.HpRect.Left);
-            int hprightX = int.Parse(_config.HpRect.Right);
-            int hptopY = int.Parse(_config.HpRect.Top);
-            int hpdownY = int.Parse(_config.HpRect.Down);
+            Rect rect = GetHpLocation(_config.PlayerNo);
+            int hpleftX = int.Parse(rect.Left);
+            int hprightX = int.Parse(rect.Right);
+            int hptopY = int.Parse(rect.Top);
+            int hpdownY = int.Parse(rect.Down);
             int weight = 0;
             using (Bitmap bmp = new Bitmap(image))
             {
@@ -115,14 +156,29 @@ namespace LineageMTool
             int hpPercent = (int)(redPointList.Count * 100 / (hprightX - hpleftX));
             Hp =  hpPercent;
         }
+
+        internal bool CheckIfGotAttackMessage(Image image)
+        {
+            Bitmap target = new Bitmap(Resources.attack);
+            return TemplateMatching(new Bitmap(image), target, new Rectangle(1000, 420, 1177-1000, 490-420));
+        }
+
+        public void Get1PLocation(Image image)
+        {
+            X = 0;
+            Y = 0;
+            Bitmap target1P = new Bitmap(Resources._1P);
+            TemplateMatching(new Bitmap(image), target1P, new Rectangle(1183, 141, 1369 - 1183, 306 - 141));
+        }
         public void CalculateMpPercent(Image image)
         {
             List<Color> bluePointList = new List<Color>();
 
-            int mpleftX = int.Parse(_config.MpRect.Left);
-            int mprightX = int.Parse(_config.MpRect.Right);
-            int mptopY = int.Parse(_config.MpRect.Top);
-            int mpdownY = int.Parse(_config.MpRect.Down);
+            Rect rect = GetMpLocation(_config.PlayerNo);
+            int mpleftX = int.Parse(rect.Left);
+            int mprightX = int.Parse(rect.Right);
+            int mptopY = int.Parse(rect.Top);
+            int mpdownY = int.Parse(rect.Down);
             using (Bitmap bmp = new Bitmap(image))
             {
                 for (int x = mpleftX; x < mprightX; x++)
@@ -164,6 +220,38 @@ namespace LineageMTool
                 default:
                     return "外掛正常運行中";
             }
+        }
+
+        private bool TemplateMatching(Bitmap soruce, Bitmap template, Rectangle rect)
+        {
+            Image<Bgr, byte> Image1 = new Image<Bgr, byte>(soruce); //Your first image
+            Image<Bgr, byte> Image2 = new Image<Bgr, byte>(template); //Your second image
+            Image1.ROI = rect;
+            double Threshold = 0.7; //set it to a decimal value between 0 and 1.00, 1.00 meaning that the images must be identical
+
+            Image<Gray, float> Matches = Image1.MatchTemplate(Image2, TemplateMatchingType.CcoeffNormed);
+            double max = 0;
+            for (int y = 0; y < Matches.Data.GetLength(0); y++)
+            {
+                for (int x = 0; x < Matches.Data.GetLength(1); x++)
+                {
+                    if (Matches.Data[y, x, 0] > max) //Check if its a valid match
+                    {
+                        max = Matches.Data[y, x, 0];
+                        //Image2 found within Image1
+                        X = x+ rect.X;
+                        Y = y+ rect.Y;
+                    }
+                }
+            }
+            if (max < Threshold)
+            {
+                X = 0;
+                Y = 0;
+                return false;
+            }
+            else
+                return true;
         }
 
         #region 暫時沒用到
