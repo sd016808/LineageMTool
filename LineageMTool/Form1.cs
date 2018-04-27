@@ -39,6 +39,7 @@ namespace LineageMTool
         private LineMessage _lineMessage;
         private GameMonitor _gameMonitor;
         private Config _config = new Config();
+        private static Process[] _processlist;
         public Form1()
         {
             InitializeComponent();
@@ -57,6 +58,7 @@ namespace LineageMTool
             comboBox1.Items.AddRange(SimulatorInfo.HotKeyList.Split(','));
             comboBoxCaptureSetting.Items.Add("DirectX");
             comboBoxCaptureSetting.Items.Add("GDI");
+            UpdateSimulators();
 
             if (File.Exists(_configPath))
             {
@@ -81,7 +83,6 @@ namespace LineageMTool
                 comboBoxArrow.SelectedIndex = 2;
                 comboBoxOrange.SelectedIndex = 3;
                 comboBoxBackToHome.SelectedIndex = 5;
-
                 ConverUItoConfig();
             }
 
@@ -98,7 +99,7 @@ namespace LineageMTool
 
         private void ConverUItoConfig()
         {
-            _config.SimulatorName = textBoxSimulatorName.Text;
+            _config.SimulatorName = _simulators.SelectedItem.ToString();
             _config.RefreshTime = textBoxRefresh.Text;
 
             _config.ArrowHotKey = comboBoxArrow.Text;
@@ -134,7 +135,8 @@ namespace LineageMTool
 
         private void ConverConfigToUI()
         {
-            textBoxSimulatorName.Text = _config.SimulatorName;
+            // If Exist ,it will auto setting up here.
+            _simulators.SelectedItem = _config.SimulatorName;
             textBoxRefresh.Text = _config.RefreshTime;
             comboBoxCaptureSetting.SelectedIndex = _config.comboBoxCaptureSettingSelectIndex;
 
@@ -386,6 +388,33 @@ namespace LineageMTool
                 _reScanResult = MemoryScanner.ReScan("LdBoxHeadless", target);
                 _lastScanResult = Enumerable.Intersect(_reScanResult, _lastScanResult).ToList();
             }));
+        }
+
+        /// <summary>
+        /// 取得所有模擬器的視窗標題
+        /// </summary>
+        internal void UpdateSimulators()
+        {
+            _processlist = Process.GetProcesses();
+            _simulators.Items.Clear();
+            foreach (Process process in _processlist)
+            {
+                if ((!String.IsNullOrEmpty(process.MainWindowTitle) && (process.MainWindowTitle!=this.Text) &&
+                    (process.MainWindowTitle.Contains($"{SimulatorInfo.Simulators.雷電模擬器}") || process.MainWindowTitle.Contains($"{SimulatorInfo.Simulators.夜神模擬器}"))
+                    ))
+                {
+                    _simulators.Items.Add(process.MainWindowTitle);
+                }
+            }
+            if (_simulators.Items.Count.Equals(0))
+            {
+                MessageBox.Show(null,"未抓到任何模擬器，請手動更新模擬器列表!!","注意");
+            }
+        }
+
+        private void btn_UpdateSimulators_Click(object sender, EventArgs e)
+        {
+            UpdateSimulators();
         }
     }
 }
