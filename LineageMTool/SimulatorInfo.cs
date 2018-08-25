@@ -19,6 +19,11 @@ namespace LineageMTool
     }
     public class SimulatorInfo
     {
+        public enum Simulators
+        {
+            雷電模擬器 = 0,
+            夜神模擬器 = 1
+        }
         static public string HotKeyList = "鍵盤7,鍵盤8,鍵盤9,鍵盤0,鍵盤U,鍵盤I,鍵盤O,鍵盤P";
         private uint WM_KEYDOWN = 0x0100;
         private uint WM_KEYUP = 0x0101;

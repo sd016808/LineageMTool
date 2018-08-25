@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this._simulators = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.comboBoxPlayerNo = new System.Windows.Forms.ComboBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.checkBox7 = new System.Windows.Forms.CheckBox();
@@ -62,7 +64,6 @@
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.label23 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.textBoxSimulatorName = new System.Windows.Forms.TextBox();
             this.textBoxMp = new System.Windows.Forms.TextBox();
             this.textBoxHp = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
@@ -102,7 +103,7 @@
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label1 = new System.Windows.Forms.Label();
+            this.btn_UpdateSimulators = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLineNotifyMinute)).BeginInit();
@@ -132,6 +133,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btn_UpdateSimulators);
+            this.tabPage1.Controls.Add(this._simulators);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.comboBoxPlayerNo);
             this.tabPage1.Controls.Add(this.checkBox8);
@@ -164,7 +167,6 @@
             this.tabPage1.Controls.Add(this.listBox1);
             this.tabPage1.Controls.Add(this.label23);
             this.tabPage1.Controls.Add(this.label11);
-            this.tabPage1.Controls.Add(this.textBoxSimulatorName);
             this.tabPage1.Controls.Add(this.textBoxMp);
             this.tabPage1.Controls.Add(this.textBoxHp);
             this.tabPage1.Controls.Add(this.label22);
@@ -204,6 +206,25 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // _simulators
+            // 
+            this._simulators.FormattingEnabled = true;
+            this._simulators.ItemHeight = 12;
+            this._simulators.Location = new System.Drawing.Point(22, 169);
+            this._simulators.Name = "_simulators";
+            this._simulators.Size = new System.Drawing.Size(121, 40);
+            this._simulators.TabIndex = 177;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label1.Location = new System.Drawing.Point(609, 332);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(76, 16);
+            this.label1.TabIndex = 176;
+            this.label1.Text = "角色編號:";
             // 
             // comboBoxPlayerNo
             // 
@@ -421,7 +442,7 @@
             // 
             this.comboBoxCaptureSetting.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCaptureSetting.FormattingEnabled = true;
-            this.comboBoxCaptureSetting.Location = new System.Drawing.Point(27, 197);
+            this.comboBoxCaptureSetting.Location = new System.Drawing.Point(22, 215);
             this.comboBoxCaptureSetting.Name = "comboBoxCaptureSetting";
             this.comboBoxCaptureSetting.Size = new System.Drawing.Size(121, 20);
             this.comboBoxCaptureSetting.TabIndex = 154;
@@ -534,16 +555,6 @@
             this.label11.Size = new System.Drawing.Size(21, 16);
             this.label11.TabIndex = 117;
             this.label11.Text = "%";
-            // 
-            // textBoxSimulatorName
-            // 
-            this.textBoxSimulatorName.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBoxSimulatorName.Location = new System.Drawing.Point(30, 150);
-            this.textBoxSimulatorName.Name = "textBoxSimulatorName";
-            this.textBoxSimulatorName.Size = new System.Drawing.Size(119, 27);
-            this.textBoxSimulatorName.TabIndex = 116;
-            this.textBoxSimulatorName.Text = "雷電模擬器-1";
-            this.textBoxSimulatorName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBoxMp
             // 
@@ -953,15 +964,15 @@
             this.timer1.Interval = 10000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // label1
+            // btn_UpdateSimulators
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label1.Location = new System.Drawing.Point(609, 332);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 16);
-            this.label1.TabIndex = 176;
-            this.label1.Text = "角色編號:";
+            this.btn_UpdateSimulators.Location = new System.Drawing.Point(22, 135);
+            this.btn_UpdateSimulators.Name = "btn_UpdateSimulators";
+            this.btn_UpdateSimulators.Size = new System.Drawing.Size(121, 28);
+            this.btn_UpdateSimulators.TabIndex = 178;
+            this.btn_UpdateSimulators.Text = "更新模擬器清單";
+            this.btn_UpdateSimulators.UseVisualStyleBackColor = true;
+            this.btn_UpdateSimulators.Click += new System.EventHandler(this.btn_UpdateSimulators_Click);
             // 
             // Form1
             // 
@@ -1005,7 +1016,6 @@
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBoxSimulatorName;
         private System.Windows.Forms.TextBox textBoxMp;
         private System.Windows.Forms.TextBox textBoxHp;
         private System.Windows.Forms.Label label22;
@@ -1070,6 +1080,8 @@
         private System.Windows.Forms.CheckBox checkBox7;
         private System.Windows.Forms.ComboBox comboBoxPlayerNo;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListBox _simulators;
+        private System.Windows.Forms.Button btn_UpdateSimulators;
     }
 }
 
